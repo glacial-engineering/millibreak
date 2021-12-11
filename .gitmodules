@@ -1,0 +1,4 @@
+[submodule "submodules/solana-poc-framework"]
+	path = submodules/solana-poc-framework
+	url = git@github.com:glacial-engineering/solana-poc-framework.git
+	branch = main
