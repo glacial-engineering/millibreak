@@ -62,7 +62,7 @@ Verdict: Centralized; closed source.
 
 ---
 
-### 1 - Pay anyone for tickets
+### 1 - Re-direct ticket payment
 
 #### Problem
 
@@ -70,7 +70,7 @@ The `0x01` op code used to buy tickets takes the account to pay as the 4th accou
 
 #### Exploit 
 
-Moderate: This effectively reduces the cost to purchase a ticket to the cost of rent (0.001392 SOL) if the account buying the ticket pays themselves for it.
+Major: This effectively reduces the cost to purchase a ticket to the cost of rent (0.001392 SOL) if the account buying the ticket pays themselves for it. It also means the payout pool does not receive any funds for malicious ticket purchases.
 
 #### Fix
 
@@ -78,7 +78,7 @@ Assert that the account being paid for the ticket matches the owner specified on
 
 ---
 
-### 2 - Re-use ticket accounts
+### 2 - Re-usable ticket accounts
 
 #### Problem
 
@@ -86,7 +86,7 @@ The `0x01` op code used to buy tickets takes the ticket account to use for recor
 
 #### Exploit 
 
-Major: Combined with vulnerability 1, this reduces the cost to purchase a ticket to 0 SOL if the account buying the ticket reuses any other ticket account (current or old), AND pays themselves for it.
+Major: Combined with vulnerability 1, the attacker can acquire free tickets by re-using any previously created ticket account (for either the current game or past games) and redirecting payment to themselves. Because the account already existed, the attacker does not even need to pay the rent for the ticket. This has the added impact of allowing the attacker to erase other player's tickets and claim them as the attacker's.
 
 #### Fix
 
@@ -122,7 +122,7 @@ The `0x00` op code used to create games does not check the signiture for account
 
 UI/Minor: Anyone can create games for any round and owner, likely confusing the UI and/or the script
 
-Major: **Depending on how the script is reading and interpreting program accounts**, it is possible through a variety of ways to mock up games both in advance, and during the 3 second window between reveal and pay.
+Major (Potentially): **Depending on how the script is reading and interpreting program accounts**, it is possible through a variety of ways to mock up games both in advance, and during the 3 second window between reveal and pay.
 
 #### Fix
 
